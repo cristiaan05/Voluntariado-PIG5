@@ -920,12 +920,12 @@
     
     .projects-slider {
         padding: 0 40px;
-        margin-top: 60px;
+        margin-top: 100px;
     }
     
     .projects-slider .single-project {
         height: 550px;
-        width: 100%;
+        width: 800%;
         background: #333;
         -o-transition: 3s;
         transition: 3s;
@@ -939,7 +939,7 @@
     .projects-slider .single-project .project-content {
         padding: 50px;
         height: 100%;
-        background: rgba(13, 13, 13, 0.5);
+        background: rgba(61, 61, 61, 0.5);
         -webkit-transition: all 0.4s ease 0s;
         -o-transition: all 0.4s ease 0s;
         transition: all 0.4s ease 0s;
@@ -1160,11 +1160,10 @@
     
     .testimonials-section .testimonials-image-box {
         position: absolute;
-        width: 50%;
+        width: 65%;
         height: calc(100% + 120px);
         left: 0;
         top: -60px;
-        background-image: url("../img/cta-img.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }
