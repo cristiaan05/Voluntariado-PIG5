@@ -1,0 +1,119 @@
+.boton1 {
+    position: relative;
+    top: 150px;
+    left: -500px;
+    width: 10%;
+    padding: 20px;
+    background: rgb(1, 7, 82);
+    width: 25%;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    transition: all 0.9s ease;
+    box-shadow: -10px 1px 3px 0px rgb(0, 248, 236);
+    border-radius: 10px 30px;
+}
+
+.boton1:hover {
+    background: rgb(4, 210, 224);
+    color: rgb(255, 255, 255);
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+.boton2 {
+    position: relative;
+    top: 110px;
+    left: -150px;
+    width: 10%;
+    padding: 20px;
+    background: rgb(1, 7, 82);
+    width: 25%;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    transition: all 0.9s ease;
+    box-shadow: -10px 1px 3px 0px rgb(0, 248, 236);
+    border-radius: 10px 30px;
+}
+
+.boton2:hover {
+    background: rgb(4, 210, 224);
+    color: rgb(255, 255, 255);
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+.boton3 {
+    position: relative;
+    top: 75px;
+    left: 175px;
+    width: 10%;
+    padding: 20px;
+    background: rgb(1, 7, 82);
+    width: 25%;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    transition: all 0.9s ease;
+    box-shadow: -10px 1px 3px 0px rgb(0, 248, 236);
+    border-radius: 10px 30px;
+}
+
+.boton3:hover {
+    background: rgb(4, 210, 224);
+    color: rgb(255, 255, 255);
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+.boton4 {
+    position: relative;
+    top: 150px;
+    left: -450px;
+    width: 10%;
+    padding: 20px;
+    background: rgb(1, 7, 82);
+    width: 25%;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    transition: all 0.9s ease;
+    box-shadow: -10px 1px 3px 0px rgb(0, 248, 236);
+    border-radius: 10px 30px;
+}
+
+.boton4:hover {
+    background: rgb(4, 210, 224);
+    color: rgb(255, 255, 255);
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+.boton5 {
+    position: relative;
+    top: 115px;
+    left: -100px;
+    width: 10%;
+    padding: 20px;
+    background: rgb(1, 7, 82);
+    width: 25%;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    transition: all 0.9s ease;
+    box-shadow: -10px 1px 3px 0px rgb(0, 248, 236);
+    border-radius: 10px 30px;
+}
+
+.boton5:hover {
+    background: rgb(4, 210, 224);
+    color: rgb(255, 255, 255);
+    box-shadow: none;
+    border-radius: 10px;
+}

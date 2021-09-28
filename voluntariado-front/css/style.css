@@ -91,7 +91,7 @@
 --------------------------*/
     
     .sp-title {
-        font-size: 60px;
+        font-size: 50px;
         margin-bottom: 40px;
     }
     
@@ -243,6 +243,15 @@
     .site-btn.sb-dark:after,
     .site-btn.sb-dark:before {
         background: #222222;
+    }
+    
+    .site-btn-versiculo.sb-dark1 {
+        color: #e70f0f;
+    }
+    
+    .site-btn-versiculo.sb-dark1:after,
+    .site-btn-versiculo.sb-dark1:before {
+        background: #750000;
     }
     
     .site-btn.sb-solid-color {
@@ -521,7 +530,7 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: 1100px;
+        width: 1150px;
         height: 45%;
         background: #05082c;
         z-index: 20;
@@ -536,6 +545,22 @@
     }
     
     .left-bar .left-bar-content {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        text-align: center;
+        margin-bottom: 90px;
+    }
+    
+    .left-bar-admin {
+        position: absolute;
+        width: 100px;
+        height: 150%;
+        background: #05082c;
+        z-index: 20;
+    }
+    
+    .left-bar-admin .left-bar-admin-content {
         position: absolute;
         width: 100%;
         bottom: 0;
@@ -576,6 +601,12 @@
     .hero-slider .hero-slide-item {
         width: 100%;
         height: 730px;
+        display: table;
+    }
+    
+    .hero-slider1 .hero-slide1-item {
+        width: 100%;
+        height: 130px;
         display: table;
     }
     
