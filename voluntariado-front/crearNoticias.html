@@ -71,66 +71,28 @@
 
     <!-- Intro section start -->
     <section class="intro-section pt100 pb50">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 intro-text mb-5 mb-lg-0">
-                    <h2 class="sp-title">Bienvenido <span>Administrador</span></h2>
+        <div class="container" align="center">
+            <div class="col-lg-7 intro-text mb-3 mb-lg-0" align="center">
+                <h1><span class="badge bg-secondary">Creación de noticias.</span></h1>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Titulo de la noticia.</label>
+                    <input type="email" class="form-control" id="tituloNoticia">
                 </div>
-
-                <div>
-                    <a href="versiculo.html" class="boton1">Agregar Versículos</a>
-
-                    <div>
-                        <a href="crearNoticias.html" class="boton2">Agregar Noticias</a>
-                    </div>
-
-                    <div>
-                        <a href="agregarVideo.html" class="boton3">Agregar Videos</a>
-                    </div>
-
-                    <div>
-                        <a href="" class="boton4">Visualizar Peticiones</a>
-                    </div>
-
-                    <div>
-                        <a href="" class="boton5">Editar Información de Administrador</a>
-                    </div>
-
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Contenido de la noticia.</label>
+                    <textarea class="form-control" id="noticia" rows="3"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label" >Imagen de la noticia.(Opcional)</label>
+                    <input class="form-control" type="file" id="imagenNoticia">
+                </div>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="button" class="btn btn-outline-primary">Publicar</button>
+                <a class="btn btn-outline-secondary" href="admin.html" role="button">Volver</a>
             </div>
         </div>
     </section>
-
-    <!--<section class="intro-section pt100 pb50">
-        <div class="container">
-            <div class="row">
-
-
-            </div>
-        </div>
-    </section>-->
-
-    <!-- Intro section end -->
-
-
-
-
-    <!-- Footer section start -->
-    <!--<footer class="footer-section">-->
-
-
-
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        <!--<div class="copyright">Copyright &copy;
-            <script>
-                document.write(new Date().getFullYear());
-            </script> All rights reserved. <br>This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></div>-->
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
-    <!--</footer>-->
-    <!-- Footer section end -->
-
-
     <!--====== Javascripts & Jquery ======-->
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
