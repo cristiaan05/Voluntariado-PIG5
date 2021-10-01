@@ -247,6 +247,56 @@ iframe {
     padding: 75px 130px 33px 95px;
 }
 
+.limiterform {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.container-form1 {
+    width: 100%;
+    min-height: 40vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.container-form {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.wrap-form {
+    width: 960px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 75px 130px 33px 95px;
+    box-shadow: 10px 10px 100px #0e003f;
+}
+
 
 /*------------------------------------------------------------------
 [  ]*/
@@ -265,6 +315,14 @@ iframe {
 
 .login100-form {
     width: 290px;
+}
+
+.form-form {
+    width: 790px;
+}
+
+.form-peticiones {
+    width: 790px;
 }
 
 .login100-form-title {
