@@ -1195,7 +1195,6 @@
         height: calc(100% + 120px);
         left: 0;
         top: -60px;
-        background-repeat: no-repeat;
         background-size: cover;
     }
     
