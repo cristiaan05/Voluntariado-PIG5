@@ -10,42 +10,40 @@ from config import config
 from Admin import Admin
 
 
-admin = []
+
 
 app = Flask(__name__)
 db = MySQL(app)
 CORS(app)
 
-#Agregando administradores
-admin.append(Admin('1','admin','1234','admin@gmail.com'))
+
 
 #-----------------------------------------METODOS DE ADMIN--------------------------------------------------
 #buscar administrador
 @app.route('/Admin/<string:nombre_Usuario>', methods=['GET'])
 def obtenerAdmin(nombre_Usuario):
+    admin = []
     try:
-        cursor = db.connection.cursor()
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
         sql = "SELECT * FROM admin"
-        cursor.execute(sql)
-        datos = cursor.fetchall()
-        print(datos)
-        return "Ok"
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas
+        print(datos) #Ver el print para entender mejor cual es la devolución en datos.
+        for admin in datos: # por esa tupla de tuplas hacemos un for donde vamos a recorrer los datos de la tupla en la tupla
+            if admin[1] == nombre_Usuario: #admin[1] vendría siendo el nombre de cada tupla admin.
+                objeto = {
+                'id': admin[0],
+                'nombre_Usuario': admin[1],  
+                'contraseña': admin[2],
+                'correo': admin[3]
+                }
+                return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
+        salida={"Mensaje":"No existe el administrador"}
+        return(jsonify(salida))
     except Exception as error:
-        return "Error"
-    # global admin
-    # for adminBuscado in admin:
-    #     if adminBuscado.nombre_Usuario == nombre_Usuario:
-    #         objeto = {
-    #             'id': adminBuscado.id,
-    #             'nombre_Usuario': adminBuscado.nombre_Usuario,  
-    #             'contraseña': adminBuscado.contraseña,
-    #             'correo': adminBuscado.correo
-    #         }
-    #         return(jsonify(objeto))
-
-    # salida={"Mensaje":"No existe el administrador"}
-    # return(jsonify(salida))
-    
+        salida={"Mensaje":"Error"}
+        return (jsonify(error))
 
 #Modificar administrador
 @app.route('/Admin/<string:nombre_Usuario>', methods=['PUT'])
