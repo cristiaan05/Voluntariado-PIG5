@@ -87,12 +87,12 @@
                             Para enviar tu petición debes llenar el siguiente formulario:  
                         </b></h4>
                         <form class="contact-form">
-                            <input type="text" placeholder="Ingrese su nombre" required="campo obligatorio">
-                            <input type="text" placeholder="Ingrese su apellido" required="campo obligatorio">
-                            <input type="text" placeholder="Asunto del correo">
-                            <input type="text" placeholder="Ingrese su correo electrónico" required="campo obligatorio">
-                            <textarea placeholder="Escriba un mensaje" required="campo obligatorio"></textarea>
-                            <button class="site-btn sb-dark">Enviar</button>
+                            <input type="text" id = "nombre" name = "nombre" placeholder="Ingrese su nombre" required="campo obligatorio">
+                            <input type="text" id = "apellido" name = "apellido" placeholder="Ingrese su apellido" required="campo obligatorio">
+                            <input type="text" id = "asunto" name = "asunto" placeholder="Asunto del correo">
+                            <input type="text" id = "correo" name = "correo" placeholder="Ingrese su correo electrónico" required="campo obligatorio">
+                            <textarea id = "email" name = "email" placeholder="Escriba un mensaje" required="campo obligatorio"></textarea>
+                            <button type="button" onclick="sendEmail()" class="site-btn sb-dark">Enviar</button>
                         </form>
                     </div>
                 </div>
@@ -127,7 +127,59 @@
         <!-- load for map -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
         <script src="js/map.js"></script>
+        <script>
+            function sendEmail(){
+        //Extrayendo los datos de los campos de texto del HTML
+        var nombre = document.querySelector('#nombre').value;
+        var apellido = document.querySelector('#apellido').value;
+        var asunto = document.querySelector('#asunto').value;
+        var correo = document.querySelector('#correo').value;
+        var email = document.querySelector('#email').value;
 
+        //Guardando los datos en un JSON
+        var objeto = {
+          'nombre': nombre,
+          'apellido': apellido,
+          'asunto': asunto,
+          'email': correo,
+          'message': email
+        }
+
+        //Manda un mensaje a consola de que si se recibe el click
+        console.log(objeto);
+
+        //Hacinedo uso del fetch donde:
+        /* EL METODO MAGICO - EL FETCH
+                El fetch es el que nos permite crear peticiones HTTPS, la estructura es simple.
+                Debemos de ingresarle una ruta, es la ruta del endpoint que queremos consumir, seguido de ello
+                agregamos un objeto con los atributos de la peticion
+                    method: Puede ser GET, POST, PUT, DELETE
+                    body: Si el endpoint necesita un body, se le manda en este valor
+                            - Agregarle el metodo JSON.stringify(objeto)
+                    headers: Estas normalmente no cambian, son las propiedades del metodo
+            */
+
+        //Haciendo las peticiones a la api de flask por medio de Fetch
+        fetch(`http://localhost:5000/send-email`, {
+            method: 'POST',
+            body: JSON.stringify(objeto),
+            headers:{   
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',}})
+				//Parte del try-catch - siempre debe realizarse por aquello de los fallos
+            .then(res => res.json())
+            .catch(err => {
+                console.error('Error:', err)
+                alert("Error al enviar el email intente de nuevo.")
+            })
+			//Practicamente aquí se esta diciendo que si el .then de antes funcione se ejecute este nuevo .then
+			//Este response es el encargado de administrar las operaciones a realizar con los datos del servidor.
+			.then(response =>{
+				console.log(response);
+                alert(response.Mensaje)
+			})
+    }
+        </script>
 </body>
 
 </html>

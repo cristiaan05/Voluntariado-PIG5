@@ -163,7 +163,7 @@
                     if(password == response.contraseña){
                         console.log("registro exitoso")
                         alert("Exito!!! Inicio de sesión valido.");
-                        sessionStorage.setItem("buscar", usuario);
+                        sessionStorage.setItem("buscar", response.nombre_Usuario);
                         location.href = "admin.html"
                     }else{
                         alert("La contraseña es incorrecta.");

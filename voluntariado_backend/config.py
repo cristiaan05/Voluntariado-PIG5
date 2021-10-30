@@ -11,7 +11,7 @@ class DevelopmentConfig():
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = '1234'
     MYSQL_DB = 'DBVoluntariadoG5'
-
+    
 
 #Aqui voy a tener las configuraciones del proyectos
 config = {
