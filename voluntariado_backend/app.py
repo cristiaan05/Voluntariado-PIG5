@@ -82,11 +82,15 @@ def send_mail():
     try:
         nombre = request.json['nombre']
         apellido = request.json['apellido']
+        asunto = request.json['asunto']
+        #Recordar email es el correo al cual se envía el mensaje
         email = request.json['email']
+        cuerpoMensaje = request.json['message']
         
         #aquí va el contenido del email: asunto, cuerpo y así.
-        message = '''Subject: Prueba\nContent-type: text/html\n
-                    <h1>Hola mundo</h1>''' 
+        message = f'''Subject: {asunto}\nContent-type: text/html\n
+                    <h1>Peticion solicitada por: {nombre} {apellido} </h1>
+                    <h1>correo: {email}</h1><h1>Cuerpo del mensaje</h1><h2>{cuerpoMensaje}</h2>''' 
         #Establecemos conexión al servidor SMTP mediante el Host y puerto SMTP de Gmail 
         server = smtplib.SMTP("smtp.gmail.com", 587)  
         #Protocolo de cifrado de datos utilizado por gmail - Encriptación TLS
@@ -94,7 +98,7 @@ def send_mail():
         #Iniciar sesión en el servidor SMTP
         server.login("voluntariadog5@gmail.com", "voluntariadoG5$")
         #Enviando el correo con el cuerpo y todo
-        server.sendmail("voluntariadog5@gmail.com", email, message)
+        server.sendmail("voluntariadog5@gmail.com", "voluntariadog5@gmail.com", message)
 
         #Desconectar del servidor SMTP
         server.quit()
