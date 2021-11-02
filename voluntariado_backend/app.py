@@ -1,6 +1,4 @@
 #importando nuestras librerías es útil recordar que hay que instalarlas usando loas pip install y así para poder hacer uso de flask
-from re import S
-from types import MethodDescriptorType
 from flask import Flask, jsonify, request
 from flask_cors import CORS 
 import json
@@ -108,6 +106,55 @@ def send_mail():
 
     except Exception as err:
         print(err)
+
+#-----------------------------------------METODOS DE ENSEÑANZA---------------------------------------------------
+#Mostrar ensenanzas
+@app.route('/Ensenanza', methods=['GET'])
+def mostrarEnsenanzas():
+    try:
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = "SELECT * FROM ensenanza"
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas
+        print(datos) #Ver el print para entender mejor cual es la devolución en datos.
+        return (jsonify(datos)) # Se devuelve un json para mejor facilidad en javascript
+    except Exception as error:
+        salida={"Mensaje":"Error"}
+        return (jsonify(error))
+
+
+#Buscar ensenanza
+@app.route('/Ensenanza/<string:id_Ensenanza>', methods=['GET'])
+def obtenerEnsenanza(id_Ensenanza):
+    ensenanza = []
+    try:
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = "SELECT * FROM ensenanza"
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas
+        print(datos) #Ver el print para entender mejor cual es la devolución en datos.
+        for ensenanza in datos: # por esa tupla de tuplas hacemos un for donde vamos a recorrer los datos de la tupla en la tupla
+            if ensenanza[0] == int(id_Ensenanza): #ensenanza[1] vendría siendo el nombre de cada tupla ensenanza.
+                objeto = {
+                'titulo_Ensenanza': ensenanza[1],  
+                'cuerpo_Ensenanza': ensenanza[2]
+                }
+                return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
+        salida={"Mensaje":"No existe la enseñanza seleccionada."}
+        return(jsonify(salida))
+    except Exception as error:
+        salida={"Mensaje":"Error"}
+        return (jsonify(error))
+
+
+#Modificar ensenanza
+
+#Eliminar ensenanza
+
+#-----------------------------------------METODOS DE NOTICIAS---------------------------------------------------
+
 
 if __name__ == "__main__":
     app.config.from_object(config['development'])
