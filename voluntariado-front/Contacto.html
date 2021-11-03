@@ -91,7 +91,7 @@
                         <input type="text" name = "nombre" id = "nombre" placeholder="Ingrese su nombre">
                         <input type="text" name = "correo" id = "correo" placeholder="Ingrese su correo electrónico">
                         <textarea name = "email" id = "email" placeholder="Escriba un mensaje"></textarea>
-                        <button type = "button" onclick = "sendEmail()" class="btn btn-outline-success">Enviar</button>
+                        <button type = "button" onclick = "sendEmailcontacto()" class="btn btn-outline-success">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -127,7 +127,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
     <script src="js/map.js"></script>
     <script>
-    function sendEmail(){
+    function sendEmailcontacto(){
     //Extrayendo los datos de los campos de texto del HTML
     var nombre = document.querySelector('#nombre').value;
     var correo = document.querySelector('#correo').value;
