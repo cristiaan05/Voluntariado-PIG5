@@ -1,5 +1,6 @@
 #importando nuestras librerías es útil recordar que hay que instalarlas usando loas pip install y así para poder hacer uso de flask
 from flask import Flask, jsonify, request
+from flask.wrappers import Request
 from flask_cors import CORS 
 import json
 #Modulo para conectar a la base de datos
@@ -125,8 +126,8 @@ def mostrarEnsenanzas():
 
 
 #Buscar ensenanza
-@app.route('/Ensenanza/<string:id_Ensenanza>', methods=['GET'])
-def obtenerEnsenanza(id_Ensenanza):
+@app.route('/Ensenanza/<string:id>', methods=['GET'])
+def obtenerEnsenanza(id):
     ensenanza = []
     try:
         #conexion con la base de datos
@@ -136,10 +137,10 @@ def obtenerEnsenanza(id_Ensenanza):
         datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas
         print(datos) #Ver el print para entender mejor cual es la devolución en datos.
         for ensenanza in datos: # por esa tupla de tuplas hacemos un for donde vamos a recorrer los datos de la tupla en la tupla
-            if ensenanza[0] == int(id_Ensenanza): #ensenanza[1] vendría siendo el nombre de cada tupla ensenanza.
+            if ensenanza[0] == int(id): #ensenanza[1] vendría siendo el nombre de cada tupla ensenanza.
                 objeto = {
-                'titulo_Ensenanza': ensenanza[1],  
-                'cuerpo_Ensenanza': ensenanza[2]
+                'titulo': ensenanza[1],  
+                'cuerpo': ensenanza[2]
                 }
                 return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
         salida={"Mensaje":"No existe la enseñanza seleccionada."}
@@ -150,10 +151,168 @@ def obtenerEnsenanza(id_Ensenanza):
 
 
 #Modificar ensenanza
+@app.route('/Ensenanza/<string:id>', methods=['PUT'])
+def actualizarEnsenanza(id):
+    try:
+        print(id)
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = 'UPDATE ensenanza SET titulo = "{1}", cuerpo = "{2}" WHERE id = "{0}";'.format(id, request.json['titulo'], request.json['cuerpo'])
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        db.connection.commit() # Confirma la acción de inserción
+        
+        print(id, request.json['titulo'], request.json['cuerpo'])
+        salida={"Mensaje":"Actualización realizada con éxito"}
+
+        return(jsonify(salida))
+
+    except Exception as error:
+        salida={"Mensaje": f"Error: {error}"}
+        return (jsonify(error))
 
 #Eliminar ensenanza
+@app.route('/Ensenanza/<string:id>', methods=['DELETE'])
+def eliminarEnsenanza(id):
+    try:
+        print(id)
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = 'DELETE FROM ensenanza WHERE id = "{0}";'.format(id)
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        db.connection.commit() # Confirma la acción de inserción
+        
+        print(id)
+        salida={"Mensaje":"Eliminación realizada con éxito"}
+
+        return(jsonify(salida))
+
+    except Exception as error:
+        salida={"Mensaje": f"Error: {error}"}
+        return (jsonify(error))
+
+#Agregar enseñanza
+@app.route('/Ensenanza', methods=['POST'])
+def agregarEnsenanza():
+    try:
+        print(id)
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = 'INSERT INTO ensenanza VALUES(NULL, "{0}", "{1}");'.format(request.json['titulo'], request.json['cuerpo'])
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        db.connection.commit() # Confirma la acción de inserción
+        
+        print(id)
+        salida={"Mensaje":"Enseñanza agregada con éxito"}
+
+        return(jsonify(salida))
+
+    except Exception as error:
+        salida={"Mensaje": f"Error: {error}"}
+        return (jsonify(error))
+
 
 #-----------------------------------------METODOS DE NOTICIAS---------------------------------------------------
+#Mostrar Noticias
+@app.route('/Noticia', methods=['GET'])
+def mostrarNoticias():
+    try:
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = "SELECT * FROM noticias"
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas
+        print(datos) #Ver el print para entender mejor cual es la devolución en datos.
+        return (jsonify(datos)) # Se devuelve un json para mejor facilidad en javascript
+    except Exception as error:
+        salida={"Mensaje":"Error"}
+        return (jsonify(error))
+
+
+#Buscar Noticias
+@app.route('/Noticia/<string:id>', methods=['GET'])
+def obtenerNoticia(id):
+    noticias = []
+    try:
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = "SELECT * FROM noticias"
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas
+        print(datos) #Ver el print para entender mejor cual es la devolución en datos.
+        for noticias in datos: # por esa tupla de tuplas hacemos un for donde vamos a recorrer los datos de la tupla en la tupla
+            if noticias[0] == int(id): #noticias[1] vendría siendo el nombre de cada tupla noticias.
+                objeto = {
+                'titulo': noticias[1],  
+                'cuerpo': noticias[2]
+                }
+                return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
+        salida={"Mensaje":"No existe la enseñanza seleccionada."}
+        return(jsonify(salida))
+    except Exception as error:
+        salida={"Mensaje":"Error"}
+        return (jsonify(error))
+
+
+#Modificar noticias
+@app.route('/Noticia/<string:id>', methods=['PUT'])
+def actualizarNoticia(id):
+    try:
+        print(id)
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = 'UPDATE noticias SET titulo = "{1}", cuerpo = "{2}" WHERE id = "{0}";'.format(id, request.json['titulo'], request.json['cuerpo'])
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        db.connection.commit() # Confirma la acción de inserción
+        
+        print(id, request.json['titulo'], request.json['cuerpo'])
+        salida={"Mensaje":"Actualización realizada con éxito"}
+
+        return(jsonify(salida))
+
+    except Exception as error:
+        salida={"Mensaje": f"Error: {error}"}
+        return (jsonify(error))
+
+#Eliminar noticias
+@app.route('/Noticia/<string:id>', methods=['DELETE'])
+def eliminarNoticia(id):
+    try:
+        print(id)
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = 'DELETE FROM noticias WHERE id = "{0}";'.format(id)
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        db.connection.commit() # Confirma la acción de inserción
+        
+        print(id)
+        salida={"Mensaje":"Eliminación realizada con éxito"}
+
+        return(jsonify(salida))
+
+    except Exception as error:
+        salida={"Mensaje": f"Error: {error}"}
+        return (jsonify(error))
+
+#Agregar noticia
+@app.route('/Noticia', methods=['POST'])
+def agregarNoticia():
+    try:
+        print(id)
+        #conexion con la base de datos
+        cursor = db.connection.cursor() 
+        sql = 'INSERT INTO noticias VALUES(NULL, "{0}", "{1}");'.format(request.json['titulo'], request.json['cuerpo'])
+        cursor.execute(sql) #se ejecuta el comando sql en la base de datos
+        db.connection.commit() # Confirma la acción de inserción
+        
+        print(id)
+        salida={"Mensaje":"Noticia agregada con éxito"}
+
+        return(jsonify(salida))
+
+    except Exception as error:
+        salida={"Mensaje": f"Error: {error}"}
+        return (jsonify(error))
+
 
 
 if __name__ == "__main__":

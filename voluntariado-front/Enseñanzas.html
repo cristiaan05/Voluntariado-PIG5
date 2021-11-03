@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body onload="obtenerDatos()">
     <a href="https://web.whatsapp.com/" class="btn-wsp" target="_blank">
         <i class="icon-whatsapp"></i>
     </a>
@@ -77,45 +77,13 @@
     <section class="page-section spad ">
         <div class="container ">
             <div class="row ">
-                <div class="col-lg-9 col-md-12 ">
+                <div name = "seccionBlog" id = "seccionBlog" class="col-lg-9 col-md-12 ">
                     <!-- Blog post -->
-                    <div class="blog-post ">
-                        <div class="blog-content ">
-                            <div class="post-date ">15 Octubre 2021</div>
-                            <h2>La parábola de la semilla de mostaza</h2>
-                            <p>13:31 Otra parábola les refirió, diciendo: El reino de los cielos es semejante al grano de mostaza, que un hombre tomó y sembró en su campo; 13:32 el cual a la verdad es la más pequeña de todas las semillas; pero cuando ha crecido, es la mayor de las hortalizas, y se hace árbol, de tal manera que vienen las aves del cielo y hacen nidos en sus ramas. Mateo 13:31</p>
-                        </div>
-                    </div>
-                    <!-- Blog post -->
-                    <div class="blog-post ">
-                        <div class="blog-content ">
-                            <div class="post-date ">02 Octubre 2021</div>
-                            <h2>Calendario Lectura Biblica Octubre 2021</h2>
-                            <p>Toda la Escritura es inspirada por Dios y útil para enseñar, para reprender, para corregir y para instruir en la justicia, a fin de que el siervo de Dios esté enteramente capacitado para toda buena obra.
-                                2 Timoteo 3:16-17</p>
-                        </div>
-                    </div>
-                    <!-- Blog post -->
-                    <div class="blog-post ">
-                        <div class="blog-content ">
-                            <div class="post-date ">29 Septiembre 2021</div>
-                            <h2>Salmo de David</h2>
-                            <p> Jehová es mi pastor; nada me faltará.</p>
-                            <p> En lugares de delicados pastos me hará descansar;
-                                Junto a aguas de reposo me pastoreará.</p>
-                            <p> Confortará mi alma;
-                                Me guiará por sendas de justicia por amor de su nombre.</p>
-                            <p> Aunque ande en valle de sombra de muerte,
-                                No temeré mal alguno, porque tú estarás conmigo;
-                                Tu vara y tu cayado me infundirán aliento.</p>
-                            <p> Aderezas mesa delante de mí en presencia de mis angustiadores;
-                                Unges mi cabeza con aceite; mi copa está rebosando.</p>
-                            <p> Ciertamente el bien y la misericordia me seguirán todos los días de mi vida,
-                                Y en la casa de Jehová moraré por largos días.</p>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
+        </div>
+    </section>
             <!-- Footer section start -->
             <!-- Footer section start -->
             <!--<footer class="footer-section">-->
@@ -139,6 +107,40 @@
             <script src="js/magnific-popup.min.js "></script>
             <script src="js/circle-progress.min.js "></script>
             <script src="js/main.js "></script>
+            <script>
+                function obtenerDatos(){
+                    var seccion = document.querySelector('#seccionBlog')
+                    var cadena = '';
+                    fetch('http://localhost:5000/Ensenanza', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    }
+                    })
+                    .then(res => res.json())
+                    .catch(err => {
+                        console.error('Error:', err)
+                        alert("Ocurrio un error, ver la consola")
+                    })
+                    .then(response => {
+                        console.log(response);
+                        response.forEach(element => {
+                        //element es el objeto que se agarra de la lista de objetos
+                        console.log(element)
+                        //agregando el JSON a una cadena para meterlo en la tabla
+                        cadena += `<div class="blog-post ">
+                                        <div class="blog-content ">
+                                            <h2>${element[1]}</h2>
+                                            <p>${element[2]}</p>
+                                        </div>
+                                    </div>`
+                        });
+                        // POR ULTIMO: Usamos innerHTML para agregar el HTML a la etiqueta que indicamos anteriormente.
+                        seccion.innerHTML = cadena
+                    })
+                }
+            </script>
 </body>
 
 </html>

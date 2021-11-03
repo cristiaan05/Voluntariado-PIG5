@@ -102,32 +102,21 @@
                             <div class="form-group purple-border">
                                 <label for="exampleFormControlTextarea4">Ingrese el titulo de la enseñanza:
                                     <Font color="red">*</Font></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea4" rows="1" data-validate="Campo Obligatorio"></textarea>
+                                <textarea class="form-control" name = "titulo" id="titulo" rows="1" data-validate="Campo Obligatorio"></textarea>
                             </div>
 
                             <div class="form-group purple-border">
-                                <label for="exampleFormControlTextarea4">Ingrese la enseñanza a publicar:
+                                <label for="exampleFormControlTextarea4">Ingrese el cuerpo de la enseñanza a publicar:
                                     <Font color="red">*</Font></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea4" rows="10" data-validate="Campo Obligatorio"></textarea>
-                            </div>
-
-                            <div>
-                                <label for="exampleFormControlTextarea4">Cargar Imagen: (opcional)
-                                    <br></br>
-                                    <input type="file" id="read-file"/>
-                                    
+                                <textarea class="form-control" name = "cuerpo" id="cuerpo" rows="10" data-validate="Campo Obligatorio"></textarea>
                             </div>
 
                         </div>
 
                         <div class="container-login100-form-btn">
-                            <a href="">
-                                <button class="login100-form-btn">
-                                 
+                                <button type = "button" onclick="agregarEnsenanza()" class = "login100-form-btn">
                                 Publicar Enseñanza
-                                
                                 </button>
-                            </a>
                         </div>
 
                     </form>
@@ -151,7 +140,37 @@
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         <div class="copyright">Copyright &copy;
             <script>
-                document.write(new Date().getFullYear());
+            function agregarEnsenanza() {
+            var titulo = document.querySelector("#titulo").value;
+            var cuerpo = document.querySelector("#cuerpo").value;
+
+            objeto = {
+                    'titulo': titulo,
+                    'cuerpo': cuerpo
+                }
+                console.log(objeto);
+            // alert(sessionStorage.buscar)
+            //Busqueda de usuarios con el mismo nombre de usuario
+            fetch(`http://localhost:5000/Ensenanza`, {
+            method: 'POST',
+            body: JSON.stringify(objeto),
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            }
+              })
+            .then(res => res.json())
+            .catch(err => {
+              console.error('Error:', err)
+              alert("Revise que los datos ingresados sean correctos")
+            })
+            .then(response => {
+              console.log(response);
+              alert(response.Mensaje)
+              location.href = "agregarenseñanza.html";
+            })
+            }
+
             </script> All rights reserved. <br>This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></div>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 

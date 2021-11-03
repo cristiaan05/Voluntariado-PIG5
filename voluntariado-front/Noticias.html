@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body onload="obtenerDatos()">
     <a href="https://web.whatsapp.com/" class="btn-wsp" target="_blank">
         <i class="icon-whatsapp"></i>
 
@@ -78,49 +78,13 @@
         <section class="page-section spad ">
             <div class="container ">
                 <div class="row ">
-                    <div class="col-lg-9 col-md-12 ">
+                    <div name = "seccionBlog" id = "seccionBlog" class="col-lg-9 col-md-12 ">
                         <!-- Blog post -->
-                        <div class="blog-post ">
-                            <div class="thumb ">
-                                <img src="img/noticia1.jpeg " alt=" ">
-                            </div>
-                            <div class="blog-content ">
-                                <div class="post-date ">26 octubre 2021</div>
-                                <h2>Aniversario número 35 de la Iglesia Cristiana Visión de Fe</h2>
-                                <div class="post-meta ">
-                                </div>
-                                <p>En un día de octubre como hoy, un domingo hace 35 años, tuvimos el primer servicio De la Iglesia Cristiana Visión de Fe.</p>
-                                <p> Lo realizamos en el patio del COLEGIO MONTE GERISIM, de los esposos Carlos y Sonia Del Valle.</p>
-                                <p>Muchos amados y valientes hermanos nos acompañaron. Durante estos años miles de personas fueron impactadas por Dios.</p>
-                                <p>Bendito sea el SEÑOR que ha estado con nosotros todos estos años.</p>
-                            </div>
-                        </div>
-                        <!-- Blog post -->
-                        <div class="blog-post ">
-                            <div class="thumb ">
-                                <img src="img/noticia2.jpeg " alt=" ">
-                            </div>
-                            <div class="blog-content ">
-                                <div class="post-date ">20 Octubre 2021</div>
-                                <h2>Importante</h2>
-                                <p>Se cancela el estudio pastoral del día miércoles 20 de octubre, los esperamos el 27 de octubre nuevamente.</p>
-                            </div>
-                        </div>
-                        <!-- Blog post -->
-                        <div class="blog-post ">
-                            <div class="thumb ">
-                                <img src="img/noticia3.jpeg " alt=" ">
-                            </div>
-                            <div class="blog-content ">
-                                <div class="post-date ">2 octubre 2021</div>
-                                <h2>Santa Cena</h2>
-                                <p>Te invitamos a que asistas a nuestro servicio dominical el día domingo 3 de octubre, junto a tu familia y podamos compartir de la Santa Cena.</p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
-
-
+            </div>
+        </section>
 
                 <!-- Footer section start -->
                 <!-- Footer section start -->
@@ -149,6 +113,40 @@
                 <script src="js/magnific-popup.min.js "></script>
                 <script src="js/circle-progress.min.js "></script>
                 <script src="js/main.js "></script>
+                <script>
+                    function obtenerDatos(){
+                        var seccion = document.querySelector('#seccionBlog')
+                        var cadena = '';
+                        fetch('http://localhost:5000/Noticia', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Origin': '*',
+                        }
+                        })
+                        .then(res => res.json())
+                        .catch(err => {
+                            console.error('Error:', err)
+                            alert("Ocurrio un error, ver la consola")
+                        })
+                        .then(response => {
+                            console.log(response);
+                            response.forEach(element => {
+                            //element es el objeto que se agarra de la lista de objetos
+                            console.log(element)
+                            //agregando el JSON a una cadena para meterlo en la tabla
+                            cadena += `<div class="blog-post ">
+                                            <div class="blog-content ">
+                                                <h2>${element[1]}</h2>
+                                                <p>${element[2]}</p>
+                                            </div>
+                                        </div>`
+                            });
+                            // POR ULTIMO: Usamos innerHTML para agregar el HTML a la etiqueta que indicamos anteriormente.
+                            seccion.innerHTML = cadena
+                        })
+                    }
+                </script>
 </body>
 
 </html>

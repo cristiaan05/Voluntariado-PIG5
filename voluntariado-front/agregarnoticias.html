@@ -102,32 +102,22 @@
                             <div class="form-group purple-border">
                                 <label for="exampleFormControlTextarea4">Ingrese el titulo de la noticia:
                                     <Font color="red">*</Font></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea4" rows="1" data-validate="Campo Obligatorio"></textarea>
+                                <textarea class="form-control" name = "titulo" id="titulo" rows="1" data-validate="Campo Obligatorio"></textarea>
                             </div>
 
                             <div class="form-group purple-border">
                                 <label for="exampleFormControlTextarea4">Ingrese la descripcion de la noticia:
                                     <Font color="red">*</Font></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea4" rows="10" data-validate="Campo Obligatorio"></textarea>
+                                <textarea class="form-control" name = "cuerpo" id="cuerpo" rows="10" data-validate="Campo Obligatorio"></textarea>
                             </div>
-
-                            <div>
-                                <label for="exampleFormControlTextarea4">Cargar Imagen: (opcional)
-                                    <br></br>
-                                    <input type="file" id="read-file"/>
-                                    
-                            </div>
-
                         </div>
 
                         <div class="container-login100-form-btn">
-                            <a href="">
-                                <button class="login100-form-btn">
+                                <button type="button" onclick="agregarNoticia()"  class="login100-form-btn">
                                  
                                 Publicar Noticia
                                 
                                 </button>
-                            </a>
                         </div>
 
                     </form>
@@ -151,7 +141,36 @@
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         <div class="copyright">Copyright &copy;
             <script>
-                document.write(new Date().getFullYear());
+                function agregarNoticia() {
+            var titulo = document.querySelector("#titulo").value;
+            var cuerpo = document.querySelector("#cuerpo").value;
+
+            objeto = {
+                    'titulo': titulo,
+                    'cuerpo': cuerpo
+                }
+                console.log(objeto);
+            // alert(sessionStorage.buscar)
+            //Busqueda de usuarios con el mismo nombre de usuario
+            fetch(`http://localhost:5000/Noticia`, {
+            method: 'POST',
+            body: JSON.stringify(objeto),
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            }
+              })
+            .then(res => res.json())
+            .catch(err => {
+              console.error('Error:', err)
+              alert("Revise que los datos ingresados sean correctos")
+            })
+            .then(response => {
+              console.log(response);
+              alert(response.Mensaje)
+              location.href = "agregarnoticias.html";
+            })
+            }
             </script> All rights reserved. <br>This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></div>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
