@@ -76,6 +76,7 @@ def pagina_no_encontrada(error):
 
 
 #-----------------------------------------METODOS DE PETICIONES--------------------------------------------------
+#Mail de peticiones
 @app.route('/send-email', methods = ['POST'])
 def send_mail():
     try:
@@ -107,6 +108,39 @@ def send_mail():
 
     except Exception as err:
         print(err)
+
+#Mail de contactos
+@app.route('/send-email-contacto', methods = ['POST'])
+def send_mail_contacto():
+    try:
+        nombre = request.json['nombre']
+        #Recordar email es el correo al cual se envía el mensaje
+        email = request.json['email']
+        cuerpoMensaje = request.json['message']
+        
+        #aquí va el contenido del email: asunto, cuerpo y así.
+        message = f'''Subject: MENSAJE DE CONTACTO\nContent-type: text/html\n
+                    <h1>Mensaje enviado por: {nombre} </h1>
+                    <h1>correo: {email}</h1><h1>Cuerpo del mensaje</h1><h2>{cuerpoMensaje}</h2>''' 
+        #Establecemos conexión al servidor SMTP mediante el Host y puerto SMTP de Gmail 
+        server = smtplib.SMTP("smtp.gmail.com", 587)  
+        #Protocolo de cifrado de datos utilizado por gmail - Encriptación TLS
+        server.starttls() #Esto solo aplica por el puerto que estamos utilizando 587 de otra forma solo se asigna por default
+        #Iniciar sesión en el servidor SMTP
+        server.login("voluntariadog5@gmail.com", "voluntariadoG5$")
+        #Enviando el correo con el cuerpo y todo
+        server.sendmail("voluntariadog5@gmail.com", "voluntariadog5@gmail.com", message)
+
+        #Desconectar del servidor SMTP
+        server.quit()
+
+        salida={"Mensaje":"Email enviado con éxito"}
+        return(jsonify(salida))
+
+    except Exception as err:
+        print(err)
+
+
 
 #-----------------------------------------METODOS DE ENSEÑANZA---------------------------------------------------
 #Mostrar ensenanzas
@@ -170,6 +204,7 @@ def actualizarEnsenanza(id):
         salida={"Mensaje": f"Error: {error}"}
         return (jsonify(error))
 
+
 #Eliminar ensenanza
 @app.route('/Ensenanza/<string:id>', methods=['DELETE'])
 def eliminarEnsenanza(id):
@@ -189,6 +224,7 @@ def eliminarEnsenanza(id):
     except Exception as error:
         salida={"Mensaje": f"Error: {error}"}
         return (jsonify(error))
+
 
 #Agregar enseñanza
 @app.route('/Ensenanza', methods=['POST'])
@@ -217,7 +253,7 @@ def agregarEnsenanza():
 def mostrarNoticias():
     try:
         #conexion con la base de datos
-        cursor = db.connection.cursor() 
+        cursor = db.connection.cursor()
         sql = "SELECT * FROM noticias"
         cursor.execute(sql) #se ejecuta el comando sql en la base de datos
         datos = cursor.fetchall() # Al ejecutar el sql nos devuelve una tupla de tuplas

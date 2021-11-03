@@ -38,7 +38,7 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
+ 
     <!-- Header section start -->
     <header class="header-area">
         <a href="index.html" class="logo-area">
@@ -60,7 +60,7 @@
                 </ul>
             </nav>
         </div>
-    </header>
+    </header> 
     <!-- Header section end -->
 
 
@@ -88,10 +88,10 @@
                 </div>
                 <div class="col-lg-9">
                     <form class="contact-form">
-                        <input type="text" placeholder="Ingrese su nombre">
-                        <input type="text" placeholder="Ingrese su correo electrónico">
-                        <textarea placeholder="Escriba un mensaje"></textarea>
-                        <button class="site-btn sb-dark">Enviar</button>
+                        <input type="text" name = "nombre" id = "nombre" placeholder="Ingrese su nombre">
+                        <input type="text" name = "correo" id = "correo" placeholder="Ingrese su correo electrónico">
+                        <textarea name = "email" id = "email" placeholder="Escriba un mensaje"></textarea>
+                        <button type = "button" onclick = "sendEmail()" class="btn btn-outline-success">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -126,7 +126,56 @@
     <!-- load for map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
     <script src="js/map.js"></script>
+    <script>
+    function sendEmail(){
+    //Extrayendo los datos de los campos de texto del HTML
+    var nombre = document.querySelector('#nombre').value;
+    var correo = document.querySelector('#correo').value;
+    var email = document.querySelector('#email').value;
 
+    //Guardando los datos en un JSON
+    var objeto = {
+      'nombre': nombre,
+      'email': correo,
+      'message': email
+    }
+
+    //Manda un mensaje a consola de que si se recibe el click
+    console.log(objeto);
+
+    //Hacinedo uso del fetch donde:
+    /* EL METODO MAGICO - EL FETCH
+            El fetch es el que nos permite crear peticiones HTTPS, la estructura es simple.
+            Debemos de ingresarle una ruta, es la ruta del endpoint que queremos consumir, seguido de ello
+            agregamos un objeto con los atributos de la peticion
+                method: Puede ser GET, POST, PUT, DELETE
+                body: Si el endpoint necesita un body, se le manda en este valor
+                        - Agregarle el metodo JSON.stringify(objeto)
+                headers: Estas normalmente no cambian, son las propiedades del metodo
+        */
+
+    //Haciendo las peticiones a la api de flask por medio de Fetch
+    fetch(`http://localhost:5000/send-email-contacto`, {
+        method: 'POST',
+        body: JSON.stringify(objeto),
+        headers:{   
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',}})
+            //Parte del try-catch - siempre debe realizarse por aquello de los fallos
+        .then(res => res.json())
+        .catch(err => {
+            console.error('Error:', err)
+            alert("Error al enviar el email intente de nuevo.")
+        })
+        //Practicamente aquí se esta diciendo que si el .then de antes funcione se ejecute este nuevo .then
+        //Este response es el encargado de administrar las operaciones a realizar con los datos del servidor.
+        .then(response =>{
+            console.log(response);
+            alert(response.Mensaje)
+            location.href = "Contacto.html";
+        })
+}
+    </script>
 </body>
 
 </html>
