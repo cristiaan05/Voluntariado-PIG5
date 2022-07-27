@@ -1,3 +1,7 @@
+#Nota: recordar que si quiero que todo funcione, tengo que inicializar un entorno virtual correcto. 
+#Dicho entorno debe crearse en la carpeta que se va a ejecutar el servidor y activarse
+#luego instalar las librerias con: pip install flask flask_cors flask_mysqldb
+
 #importando nuestras librerías es útil recordar que hay que instalarlas usando loas pip install y así para poder hacer uso de flask
 from flask import Flask, jsonify, request
 from flask.wrappers import Request
